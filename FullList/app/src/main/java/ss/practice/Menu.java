@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -40,5 +41,25 @@ public class Menu extends ListActivity {
         MenuInflater blowUp=getMenuInflater();
         blowUp.inflate(R.menu.my_menu,menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       // return super.onOptionsItemSelected(item);
+    switch(item.getItemId()){
+        case R.id.aboutUs:
+            Intent i=new Intent("ss.practice.ABOUT");
+            startActivity(i);
+            break;
+        case R.id.prefernces:
+
+            Intent p=new Intent("ss.practice.PREFS");
+            startActivity(p);
+            break;
+        case R.id.exit:
+            finish();
+            break;
+    }
+        return false;
     }
 }
