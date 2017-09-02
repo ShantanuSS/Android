@@ -2,7 +2,9 @@ package ss.practice;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -25,6 +27,14 @@ public class OpenedClass extends Activity implements View.OnClickListener,RadioG
         //gotbread=gotBasket.getString("key"); //file naem from data class is "key"
         //question.setText(gotbread);
 //commented above 3 bcoz we are using a bundle below now and 2 bundles will give error
+
+        SharedPreferences getData= PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String et=getData.getString("name","Shantanu Sharma....."); //for edittext preference
+        String values=getData.getString("list","4"); //for list preferencce
+        if(values.contentEquals("1")) { //as we can't do values==1
+            question.setText(et);
+
+        }
     }
 
     private void initialize() {

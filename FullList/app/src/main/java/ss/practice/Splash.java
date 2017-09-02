@@ -2,8 +2,11 @@ package ss.practice;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 
 /**
  * Created by TOSHIBA on 10-08-2017.
@@ -15,7 +18,11 @@ MediaPlayer ourSong;
         super.onCreate(AnythingCanBeHere);
     setContentView(R.layout.splash);
         ourSong=MediaPlayer.create(Splash.this,R.raw.ktone);  //below setcontentview (good habit)
+        SharedPreferences getPrefs= PreferenceManager.getDefaultSharedPreferences(getBaseContext());  //helps to egt info from preference
+        boolean music =getPrefs.getBoolean("checkbox",true);// which we mentioned in prefs.xml
+        if (music==true)  //if checkbox is tick then only we will play the song
         ourSong.start();
+
         Thread timer=new Thread()  //it looks for run method
         {
             public void run(){
