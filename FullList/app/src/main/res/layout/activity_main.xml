@@ -18,9 +18,9 @@
         android:id="@+id/tvDisplay"
         />
     <Button
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="add one "
+        android:background="@drawable/custom"
         android:textSize="20dp"
         android:id="@+id/bAdd"
         android:layout_below="@id/tvDisplay"
