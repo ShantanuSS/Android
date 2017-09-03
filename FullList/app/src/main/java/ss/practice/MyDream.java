@@ -5,6 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.view.View;
 
 /**
@@ -29,8 +31,11 @@ public class MyDream extends View {
             changer+=10;
         else
             changer=0;
-        //Rect middleRect=new Rect();
-        //midd
+        Rect middleRect=new Rect();
+        middleRect.set(0,400,canvas.getWidth(),550); //(left,top,right.bottom)
+        Paint ourBlue=new Paint();
+        ourBlue.setColor(Color.BLUE);
+        canvas.drawRect(middleRect,ourBlue);
         invalidate();
 
     }
