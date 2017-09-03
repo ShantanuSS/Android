@@ -17,13 +17,18 @@ import android.view.View;
 public class GraphicsSurface extends Activity implements View.OnTouchListener {
 
     MyDreamSurface ourSurfaceView;
-    float x,y;
+    float x,y,sx,sy,fx,fy;
+    Bitmap test,plus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ourSurfaceView=new MyDreamSurface(this);
         ourSurfaceView.setOnTouchListener(this);
         x=0;y=0;
+        sx=0;fy=0;fx=0;sy=0;
+        test= BitmapFactory.decodeResource(getResources(),R.drawable.myscene);
+        plus= BitmapFactory.decodeResource(getResources(),R.drawable.plus);
         setContentView(ourSurfaceView);
     }
 
@@ -43,7 +48,16 @@ public class GraphicsSurface extends Activity implements View.OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
         x=event.getX();
         y=event.getY();
-        return false;
+        switch (event.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                sx=event.getX();
+                sy=event.getY();
+                break;
+            case MotionEvent.ACTION_UP:
+                fx=event.getX();
+                fy=event.getY();
+        }
+        return true;
     }
     public class MyDreamSurface extends SurfaceView implements Runnable{
         SurfaceHolder ourHolder; //Holder tells whether surface is valid or not,if valid then we can paint
@@ -81,9 +95,14 @@ public class GraphicsSurface extends Activity implements View.OnTouchListener {
                 Canvas canvas=ourHolder.lockCanvas();//now no other process(activity or thread) can acces this canvas
                 canvas.drawRGB(02,07,150);
                 if(x!=0&&y!=0){
-                    Bitmap test= BitmapFactory.decodeResource(getResources(),R.drawable.myscene);
-                    canvas.drawBitmap(test,x,y,null);
+                          canvas.drawBitmap(test,x-(test.getWidth()/2),y-(test.getHeight()/2),null);
                 }
+                if(sx!=0&&sy!=0){
+                    canvas.drawBitmap(plus,sx-(plus.getWidth()/2),sy-(plus.getHeight()/2),null);
+                }
+                if(fx!=0&&fy!=0){
+                canvas.drawBitmap(plus,fx-(plus.getWidth()/2),fy-(plus.getHeight()/2),null);
+            }
                 ourHolder.unlockCanvasAndPost(canvas);//it unlocks the canvas and posts it
             }
         }
