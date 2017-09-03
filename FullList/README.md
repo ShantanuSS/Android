@@ -9,3 +9,5 @@ This Application provides you--
 4)RadioGroup Handler
 
 5)AboutUs and Preferences Menu Option
+
+4)Handling Animations and Motion Events
