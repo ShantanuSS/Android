@@ -17,7 +17,8 @@ import android.view.View;
 public class GraphicsSurface extends Activity implements View.OnTouchListener {
 
     MyDreamSurface ourSurfaceView;
-    float x,y,sx,sy,fx,fy;
+    float x,y,sx,sy,fx,fy,dx,dy,anix,aniy,scalx,scaly;
+
     Bitmap test,plus;
 
     @Override
@@ -27,6 +28,7 @@ public class GraphicsSurface extends Activity implements View.OnTouchListener {
         ourSurfaceView.setOnTouchListener(this);
         x=0;y=0;
         sx=0;fy=0;fx=0;sy=0;
+        dx=dy=anix=aniy=scalx=scaly=0;
         test= BitmapFactory.decodeResource(getResources(),R.drawable.myscene);
         plus= BitmapFactory.decodeResource(getResources(),R.drawable.plus);
         setContentView(ourSurfaceView);
@@ -52,10 +54,17 @@ public class GraphicsSurface extends Activity implements View.OnTouchListener {
             case MotionEvent.ACTION_DOWN:
                 sx=event.getX();
                 sy=event.getY();
+                dx=dy=anix=aniy=scalx=scaly=fx=fy=0;
                 break;
             case MotionEvent.ACTION_UP:
                 fx=event.getX();
                 fy=event.getY();
+                dx=fx-sx; //change in x direction
+                dy=fy-sy;
+                scalx=dx/30; //displacement in x direction
+                scaly=dy/30;
+                x=y=0;
+                break;
         }
         return true;
     }
@@ -101,8 +110,11 @@ public class GraphicsSurface extends Activity implements View.OnTouchListener {
                     canvas.drawBitmap(plus,sx-(plus.getWidth()/2),sy-(plus.getHeight()/2),null);
                 }
                 if(fx!=0&&fy!=0){
-                canvas.drawBitmap(plus,fx-(plus.getWidth()/2),fy-(plus.getHeight()/2),null);
+                    canvas.drawBitmap(test,fx-(test.getWidth()/2)-anix,fy-(test.getHeight()/2)-aniy,null);
+                    canvas.drawBitmap(plus,fx-(plus.getWidth()/2),fy-(plus.getHeight()/2),null);
             }
+                anix=anix+scalx; //adds displacement everytime when loops
+                aniy=aniy+scaly;
                 ourHolder.unlockCanvasAndPost(canvas);//it unlocks the canvas and posts it
             }
         }
