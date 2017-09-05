@@ -48,6 +48,12 @@ public class GraphicsSurface extends Activity implements View.OnTouchListener {
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         x=event.getX();
         y=event.getY();
         switch (event.getAction()){
