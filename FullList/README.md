@@ -1,4 +1,4 @@
-This Application provides you--
+# This Application provides you--
 
 1)List Facility
 
@@ -10,4 +10,8 @@ This Application provides you--
 
 5)AboutUs and Preferences Menu Option
 
-4)Handling Animations and Motion Events
+6)Handling Animations and Motion Events
+
+7)Use of Slider,Tabs,Flipper
+
+8)Opening Websites 
