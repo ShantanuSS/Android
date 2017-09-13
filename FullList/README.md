@@ -14,4 +14,6 @@
 
 7)Use of Slider,Tabs,Flipper
 
-8)Opening Websites 
+8)Opening Websites
+
+9)Working on SharedPreferences and AsyncTask
