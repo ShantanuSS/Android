@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -63,17 +64,39 @@ public class InternalData extends Activity implements View.OnClickListener {
                 } catch (IOException e) {
                     e.printStackTrace();
                 } */
-                fos=openFileOutput(FILE,Context.MODE_PRIVATE);
-                fos.q
-                SharedPreferences.Editor editor= somedata.edit();  //allows to edit string
-                editor.putString("sharedstrng",strdata);  //and put this string
-                editor.commit();  //saves
+                try {
+                    fos=openFileOutput(FILE,Context.MODE_PRIVATE);
+                    fos.write(data.getBytes());
+                    fos.close();
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 break;
             case R.id.sfload:
-                somedata =getSharedPreferences( FILE,0);
-                String datareturned=somedata.getString("sharedstring","Couldn't loadfirst parameter");
-                dataresult.setText(datareturned);
-
+                String collected=null;
+                FileInputStream fis=null;
+                try {
+                    fis=openFileInput(FILE);
+                    byte[] dataarr=new byte[fis.available()];// this returns bytes in our input stream
+                    while (fis.read(dataarr)!=-1){ //once we have read everything
+                    collected=new String(dataarr);
+                    }
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                finally {
+                    try {
+                        fis.close();
+                        dataresult.setText(collected);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 break;
         }
     }
