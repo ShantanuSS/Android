@@ -3,6 +3,7 @@ package ss.practice;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -76,28 +77,37 @@ public class InternalData extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.sfload:
-                String collected=null;
-                FileInputStream fis=null;
-                try {
-                    fis=openFileInput(FILE);
-                    byte[] dataarr=new byte[fis.available()];// this returns bytes in our input stream
-                    while (fis.read(dataarr)!=-1){ //once we have read everything
+                new loader().execute(FILE);
+                break;
+        }
+    }
+    public class loader extends AsyncTask<String,Integer,String>{ //parameters states- what we passing in,what progess is,what we are returning
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            String collected=null;
+            FileInputStream fis=null;
+            try {
+                fis=openFileInput(FILE);
+                byte[] dataarr=new byte[fis.available()];// this returns bytes in our input stream
+                while (fis.read(dataarr)!=-1){ //once we have read everything
                     collected=new String(dataarr);
-                    }
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                }
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            finally {
+                try {
+                    fis.close();
+                    return collected;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                finally {
-                    try {
-                        fis.close();
-                        dataresult.setText(collected);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-                break;
+            }
+            return null;
         }
     }
 }
