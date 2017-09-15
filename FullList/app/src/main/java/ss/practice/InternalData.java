@@ -1,6 +1,7 @@
 package ss.practice;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -30,7 +31,7 @@ public class InternalData extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sharedpreferences);
+           setContentView(R.layout.sharedpreferences);
         setupVar();
     }
     private void setupVar() {
@@ -82,12 +83,29 @@ public class InternalData extends Activity implements View.OnClickListener {
         }
     }
     public class loader extends AsyncTask<String,Integer,String>{ //parameters states- what we passing in,what progess is,what we are returning
-
+        ProgressDialog dialog;
+        protected void onPreExecute(){
+            //setting up someting
+        dialog=new ProgressDialog(InternalData.this); //context of main class
+            dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            dialog.setMax(100);
+            dialog.show();
+        }
         @Override
         protected String doInBackground(String... params) {
 
             String collected=null;
             FileInputStream fis=null;
+            for(int i=0;i<20;i++){
+                publishProgress(5); //sends 5 to onProgressUpdate func
+                try {
+                    Thread.sleep(88);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            dialog.dismiss();
             try {
                 fis=openFileInput(FILE);
                 byte[] dataarr=new byte[fis.available()];// this returns bytes in our input stream
@@ -109,5 +127,12 @@ public class InternalData extends Activity implements View.OnClickListener {
             }
             return null;
         }
+    protected void onProgressUpdate(Integer...progress){ //Integer...name is integer array
+        dialog.incrementProgressBy(progress[0]); //references 5 each time
     }
+        protected void onPostExecute(String result){
+                dataresult.setText(result);
+        }
+    }
+
 }
