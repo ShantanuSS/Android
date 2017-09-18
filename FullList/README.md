@@ -17,3 +17,5 @@
 8)Opening Websites
 
 9)Working on SharedPreferences and AsyncTask
+
+10)Proper Use of SQLite Database
