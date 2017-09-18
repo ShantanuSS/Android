@@ -30,11 +30,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Update DB"
-        android:id="@+id/btUpdatedb" />
+        android:id="@+id/btsqlUpdate" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="View"
-        android:id="@+id/btView" />
+        android:id="@+id/btsqlView" />
 </LinearLayout>

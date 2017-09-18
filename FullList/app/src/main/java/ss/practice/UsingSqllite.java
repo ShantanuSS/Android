@@ -17,12 +17,25 @@ public class UsingSqllite extends Activity implements View.OnClickListener  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sqlitedb);
+        sqlupdate=(Button)findViewById(R.id.btsqlUpdate);
+        sqlname=(EditText)findViewById(R.id.etsqlnaam);
+        sqlrate=(EditText)findViewById(R.id.etsqlrateme);
 
-
+        sqlView=(Button)findViewById(R.id.btsqlView);
+        sqlView.setOnClickListener(this);
+        sqlupdate.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btsqlUpdate:
 
+                break;
+            case R.id.btsqlView:
+
+                break;
+
+        }
     }
 }
