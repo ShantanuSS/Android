@@ -28,15 +28,26 @@ public DBHelper(Context context){
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL("CREATE TABLE" + DATABASE_TABLE +" ("+
+                KEY_ROWID +"INTEGER PRIMARY KEY AUTOINCREMENT, "+
+                KEY_NAME+" TEXT NOT NULL, " +
+                KEY_RATINGS+" TEXT NOT NULL);"
+        ); //this sets up the DB
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        db.execSQL("DROP TABLE IF EXISTS "+ DATABASE_TABLE);
+        onCreate(db);  //upgrades the DB
     }
 }
     public Rater(Context c){
         ourCon=c;
+    }
+
+    public Rater open(){
+        ourHelper=new DBHelper(ourCon);
+        ourDB=ourHelper.getWritableDatabase();//writing to DB
+        return this;
     }
 }
