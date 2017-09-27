@@ -30,8 +30,15 @@ public class UsingSqllite extends Activity implements View.OnClickListener  {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btsqlUpdate:
+                String name=sqlname.getText().toString();
+                String ratept=sqlrate.getText().toString();
 
-                break;
+                Rater entry=new Rater(UsingSqllite.this); //creating new instance of Rater class 
+                entry.open();
+                entry.createentry(name,ratept);  //creating a new func.
+                entry.close();
+
+                    break;
             case R.id.btsqlView:
 
                 break;

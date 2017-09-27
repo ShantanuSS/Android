@@ -21,6 +21,9 @@ public class Rater {
     private final Context ourCon;
     private SQLiteDatabase ourDB;
 
+    public void createentry(String name, String ratept) {
+    }
+
     private static class DBHelper extends SQLiteOpenHelper{
 public DBHelper(Context context){
     super(context,DATABASE_NAME,null, Integer.parseInt(DATABASE_VERSION));
@@ -48,6 +51,10 @@ public DBHelper(Context context){
     public Rater open(){
         ourHelper=new DBHelper(ourCon);
         ourDB=ourHelper.getWritableDatabase();//writing to DB
-        return this;
+            return this;
+    }
+    public void close(){  //for closing DB
+        ourHelper.close();
+
     }
 }
