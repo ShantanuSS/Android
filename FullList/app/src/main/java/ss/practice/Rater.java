@@ -1,5 +1,6 @@
 package ss.practice;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -20,9 +21,6 @@ public class Rater {
     private DBHelper ourHelper;//setting instance pf class
     private final Context ourCon;
     private SQLiteDatabase ourDB;
-
-    public void createentry(String name, String ratept) {
-    }
 
     private static class DBHelper extends SQLiteOpenHelper{
 public DBHelper(Context context){
@@ -57,4 +55,13 @@ public DBHelper(Context context){
         ourHelper.close();
 
     }
+
+    public long createentry(String name, String ratept) {
+        ContentValues cv=new ContentValues();
+        cv.put(KEY_NAME,name);  //KEY_NAME is text type
+        cv.put(KEY_RATINGS,ratept);
+        return ourDB.insert(DATABASE_TABLE,null,cv);
+
+    }
+
 }

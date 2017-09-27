@@ -33,7 +33,7 @@ public class UsingSqllite extends Activity implements View.OnClickListener  {
                 String name=sqlname.getText().toString();
                 String ratept=sqlrate.getText().toString();
 
-                Rater entry=new Rater(UsingSqllite.this); //creating new instance of Rater class 
+                Rater entry=new Rater(UsingSqllite.this); //creating new instance of Rater class
                 entry.open();
                 entry.createentry(name,ratept);  //creating a new func.
                 entry.close();
